@@ -110,7 +110,7 @@ Inner AP message (protobuf)
 
 | Variable | Description |
 |----------|-------------|
-| `CENTRAL_HOST` | Aruba Central API hostname (e.g. `internal.api.central.arubanetworks.com`) |
+| `CENTRAL_HOST` | Aruba Central API hostname (e.g. `<CENTRAL_HOST>`) |
 | `CLIENT_ID` | OAuth2 client ID from Aruba Central / HPE GreenLake |
 | `CLIENT_SECRET` | OAuth2 client secret |
 

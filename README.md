@@ -54,7 +54,7 @@ cp backend/.env.example backend/.env
 Edit `backend/.env`:
 
 ```env
-CENTRAL_HOST=internal.api.central.arubanetworks.com
+CENTRAL_HOST=<CENTRAL_HOST>
 CLIENT_ID=your-client-id
 CLIENT_SECRET=your-client-secret
 ```
