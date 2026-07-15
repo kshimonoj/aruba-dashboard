@@ -50,6 +50,10 @@ class StreamClient:
                 await self._run_session()
             except Exception as e:
                 logger.error(f"[{self.name}] Session error: {e}")
+                # 401 はトークン失効の可能性が高いので次の接続前に更新を試みる
+                if "401" in str(e) and self._token_manager:
+                    logger.info(f"[{self.name}] Got 401, requesting token refresh")
+                    await self._token_manager.refresh_now()
                 if self._running:
                     logger.info(f"[{self.name}] Reconnecting in 5 seconds...")
                     await asyncio.sleep(5)
@@ -63,11 +67,13 @@ class StreamClient:
 
         headers = {"Authorization": f"Bearer {token}"}
         logger.info(f"[{self.name}] Connecting to {self.url}")
+        # Central のゲートウェイは client ping に pong を返さないため、
+        # pong 待ちタイムアウトを無効化する（ping 自体は NAT keepalive として送る）
         async with websockets.connect(
             self.url,
             extra_headers=headers,
             ping_interval=20,
-            ping_timeout=30,
+            ping_timeout=None,
         ) as ws:
             self._ws           = ws
             self._connected    = True

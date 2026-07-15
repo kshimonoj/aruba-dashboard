@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    container_name: aruba-dashboard-backend
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./backend/.env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  frontend:
+    build: ./frontend
+    container_name: aruba-dashboard-frontend
+    ports:
+      - "3001:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=ws://localhost:8001
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

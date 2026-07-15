@@ -16,7 +16,7 @@ interface APMonitoringTableProps {
   onEvent: (event: APEvent) => void;
 }
 
-const WS_URL    = "ws://192.168.19.150:8000/ws/ap-events";
+const WS_URL    = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "ws://localhost:8001"}/ws/ap-events`;
 const MAX_EVENTS = 100;
 
 // ── ユーティリティ ──────────────────────────────────────────

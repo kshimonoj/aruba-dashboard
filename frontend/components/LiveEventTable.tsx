@@ -13,7 +13,7 @@ interface LiveEventTableProps {
   onEvent: (event: ArubaEvent) => void;
 }
 
-const WS_URL = "ws://192.168.19.150:8000/ws/events";
+const WS_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "ws://localhost:8001"}/ws/events`;
 const MAX_EVENTS = 100;
 
 // ---------------------------------------------------------------
