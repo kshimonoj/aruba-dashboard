@@ -72,7 +72,7 @@ app = FastAPI(title="Aruba Central Streaming Dashboard", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://192.168.19.150:3000", "http://localhost:3000"],
+    allow_origins=["http://192.168.19.150:3000", "http://localhost:3000", "http://localhost:3001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
